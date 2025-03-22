@@ -9,7 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
          * @Route("/", name="homepage")
          */
         public function home(){
-            return $this -> render('home.html.twig');
+            $prenom = ["Tovo"=>28, "Helisoa"=>30, "Mathis"=>1];
+            return $this -> render(
+            'home.html.twig',
+            ['title'=> "Pi Aceuil",
+            'h1' => "Premiere page reussi",
+            'age' => 14,
+            'tableau'=>$prenom
+            ]
+        );
         }
     }
 

@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Ma premiére page symfony</title>
-    </head>
-    <body>
-        <h1>Premièere page Twig</h1>
+{% extends 'base.html.twig'%}
+    {% block title %}
+        Mise en place du thème
+    {% endblock %}
+    {% block body %}
+        <h1>{{h1 | upper }}</h1>
         <p>Premièreparagraphe Twig.</p>
-    </body>
-</html>
+        {% if age <12 %}
+            <p>T'es un enfant.</p>
+        {% elseif age < 18 %}
+            <p>T'es un ado.</p>
+        {% elseif age > 18 %}
+            <p>Vous ête majeur</p>
+        {% endif %}
+
+        {% for prenom, age in tableau %}
+            <p>{{ prenom }} a {{age}} ans.</p>
+        {% endfor %}
+    {% endblock %}
