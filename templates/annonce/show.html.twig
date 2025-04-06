@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ annonce.tittle }}{% endblock %}
+{% block body %}
+    <div>
+        <h1>{{ annonce.tittle }}</h1>
+        <div>
+            {{ annonce.content | raw}}
+        </div>
+    </div>
+{% endblock %}
