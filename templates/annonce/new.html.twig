@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block title %} - Creation d'une annonce
+{% endblock %}
+
+{% form_theme form _self %}{#'partial/theme.html.twig' a la place du self#}
+{% block body %}
+    <div class="container">
+        <h1>Création d'une nouvelle annonce</h1>
+        {{ form_start(form) }}
+            {{ form_widget(form)}}
+        {{ form_end(form)}}
+    </div>
+{% endblock %}
+
+{% block form_row %}
+ {# dump()#}
+    <div class="form-group">
+        {{ form_label(form)}}
+        {{ form_widget(form)}}
+    </div>
+{% endblock %}
+{% block text_widget %}
+    <input type="text" name="{{ full_name}}" id="{{ id}}" class="form-control">
+{% endblock %}
