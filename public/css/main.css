@@ -7,3 +7,13 @@ html, body{
     width: 90%;
     margin: auto;
 }
+
+div.annonce_title{
+    background-size: cover;
+    background-position: center center;
+}
+
+div.annonce_title h1, div.annonce_title p{
+    color: azure;
+    text-shadow: 3px 3px 3px rgb(0, 0, 0, 0.5) ;
+}
