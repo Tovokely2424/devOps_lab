@@ -1,24 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos Annoces!{% endblock %}
+{% block title %}Nos Annoces!
+{% endblock %}
 
 {% block body %}
-    <div>
-        <h2 class="mt-1 mb-4">Nos annonces!</h2>
-        <div class="row mt-1">
-            {% for annonce in annonces %}
-            <div class="col-sm-4 mr-auto">
-                <div class="card text-white bg-secondary mb-1" style="max-width: 20rem;">
-                    <div class="card-header">{{ annonce.rooms }} chambres |; {{ annonce.price }} &euro;</div>
-                    <div class="card-body">
-                        <h4 class="card-title">{{ annonce.tittle }}</h4>
-                        <img src="/imagestest/puma.png" alt="Image de l'appartement" style="width:100%;height:auto; display : block; overflow : auto"/>
-                        <p class="card-text">{{annonce.introduction}}</p>
-                        <p><button type="button" class="btn btn-secondary">En savoir plus</button></p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+	<div>
+		<h2 class="mt-1 mb-4">Nos annonces!</h2>
+		<div class="row mt-1">
+			{% for annonce in annonces %}
+			{% set url=path('annonce_show', {'slug' : annonce.slug}) %}
+				<div class="col-sm-4 mr-auto">
+					<div class="card text-white bg-secondary mb-1" style="max-width: 20rem;">
+						<div class="card-header">{{ annonce.rooms }}
+							chambres |
+							{{ annonce.price }}
+							&euro;</div>
+						<div class="card-body">
+							<a href="{{ url }}">
+								<h4 class="card-title">{{ annonce.tittle }}</h4>
+							</a>
+							<a href="{{ url }}">
+								<img src="{{ annonce.converImage }}" alt="Image de l'appartement" style="width:100%;height:auto; display : block; overflow : auto"/>
+							</a>
+							<p class="card-text">{{annonce.introduction}}</p>
+							<p>
+								<a href="{{ url }}">
+									<button type="button" class="btn btn-secondary">En savoir plus</button>
+								</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
