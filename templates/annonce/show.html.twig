@@ -1,10 +1,64 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ annonce.tittle }}{% endblock %}
+{% block title %}
+	{{ annonce.tittle }}
+{% endblock %}
 {% block body %}
-    <div>
-        <h1>{{ annonce.tittle }}</h1>
-        <div>
-            {{ annonce.content | raw}}
-        </div>
-    </div>
+	<div class="annonce_title mb-2 mt-2" style="background-image : url({{ annonce.converImage }})">
+		<div class="container">
+			<h1>{{ annonce.tittle }}</h1>
+			<p>
+				{{ annonce.introduction }}</p>
+			<p class="h2">
+				<strong>{{ annonce.rooms }} chambres</strong> pour
+				<strong>{{ annonce.price }} &euro;</strong>	par nuit
+			</p>
+			<a href="#" class="btn btn-light mb-1">Reserver !</a>
+		</div>
+	</div>
+	<hr>
+	<div>
+		<div class="row">
+			<div class="col-md-8 mb-2">
+				{{ annonce.content | raw}}
+				<div id="carouselExampleCaptions" class="carousel slide">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					</div>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="{{ annonce.converImage }}" class="d-block w-100" alt="...">
+							<div class="carousel-caption d-none d-md-block">
+								<h5>{{ annonce.tittle }}</h5>
+								<p>{{ annonce.introduction }}</p>
+							</div>
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+			<div class="col">
+				<div class="row">
+					<div class="col-4">
+						<img src="https://picsum.photos/100/90" alt="Image du propriétaire" set="">
+					</div>
+					<div class="col">
+						<h3>Joseph DUPONT</h3>
+						<span class="btn btn-dark btn-sm">3 annonces</span>
+						
+					</div>
+				</div>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis minus, aperiam reiciendis, placeat magnam quisquam tempora dolorem natus facilis explicabo sequi optio debitis beatae hic asperiores. Quis omnis nobis blanditiis.</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, dolor quam. Laboriosam, enim veniam nihil officiis accusantium suscipit eaque deleniti, voluptas atque deserunt ullam alias nisi consectetur, eos provident. Labore?</p>
+			</div>
+		</div>
+	</div>
 {% endblock %}
