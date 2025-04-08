@@ -17,7 +17,7 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 50; $i++) { 
             $annonce = new Annonce();
             $tittle = $faker->sentence();
-            $converImage = $faker->imageUrl(1000, 350);
+            $converImage = 'https://loremflickr.com/640/480/nature?lock=' . mt_rand(1, 10000);
             $introduction = $faker->paragraph(3);
             $content = '<p>'.join('</p><p>', $faker->paragraphs(5)).'</p>';
             $annonce->setTittle($tittle)
@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
 
             for ($j=0; $j < mt_rand(2, 5); $j++) { 
                 $image = new Image();
-                $image -> setUrl($faker->imageUrl())
+                $image -> setUrl('https://loremflickr.com/640/480/nature?lock=' . mt_rand(1, 10000))
                         ->setCaption($faker->sentence())
                         ->setAnnonce($annonce);
 
