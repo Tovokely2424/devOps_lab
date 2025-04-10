@@ -3,18 +3,22 @@
 {% block title %} - Creation d'une annonce
 {% endblock %}
 
-{% form_theme form _self %}{#'partial/theme.html.twig' a la place du self#}
+{#{% form_theme form _self %}'partial/theme.html.twig' a la place du self#}
 {% block body %}
-    <div class="container">
-        <h1>Création d'une nouvelle annonce</h1>
+<div class="container">
+    <h1 class="text-center">Création d'une nouvelle annonce</h1>
+    <div class="w-75 mx-auto">
+        
         {{ form_start(form) }}
             {{ form_widget(form)}}
         {{ form_end(form)}}
     </div>
-{% endblock %}
+</div>
 
+{% endblock %}
+{#
 {% block form_row %}
- {# dump()#}
+  dump()
     <div class="form-group">
         {{ form_label(form)}}
         {{ form_widget(form)}}
@@ -23,3 +27,5 @@
 {% block text_widget %}
     <input type="text" name="{{ full_name}}" id="{{ id}}" class="form-control">
 {% endblock %}
+
+#}
