@@ -10,7 +10,8 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
@@ -22,9 +23,11 @@
             
             {% endblock %}
         </div>
-        {% include "partials/footer.html.twig"%}
+        {% include "partials/footer.html.twig" %}
     </body>
-    <script src="/js/jquery.min.js"></script>
+    {# <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script> #}
+    <!-- jQuery -->
+    {% block jsperso %}{% endblock %}
 </html>

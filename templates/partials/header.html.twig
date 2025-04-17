@@ -5,12 +5,12 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarColor02">
+            <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('homepage') }}">Home</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('annonces') }}">Les Annonces</a>
                     </li>
                 </ul>
@@ -25,9 +25,23 @@
 </header>
 {% for label, messages in app.flashes %}
     <div class="container">
-        <div class="alert alert-{{ label }}">
+        {# <div class="alert alert-{{ label }}">
             {% for message in messages %}
                 <p class="text-center">{{ message | raw}}</p>
+            {% endfor %}
+        </div> #}
+        <div class="toast w-100 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Information</strong>
+                <small>Maintenant</small>
+                <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true"></span>
+                </button>
+            </div>
+            {% for message in messages %}
+            <div class="toast-body">
+                <p class="text-center">{{ message | raw}}</p>
+            </div>
             {% endfor %}
         </div>
     </div>

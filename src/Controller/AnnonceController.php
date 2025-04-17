@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
@@ -41,6 +42,10 @@ class AnnonceController extends AbstractController
         if ($form->isSubmitted($request) && $form->isValid()) {
             //dump($annonce);
             //$manager = $this->getDoctrine()->getManager();
+            foreach($annonce->getImages() as $imgOK){
+                $imgOK->setAnnonce($annonce);
+                $manager->persist($imgOK);
+            }
             $manager->persist($annonce);
             $manager->flush();
             $this->addFlash('success', "L'annonce <strong>{$annonce->getSlug()}</strong> a été ajouté avec succès" );
@@ -65,6 +70,42 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/show.html.twig', [
             'annonce'=> $annonce
         ]);
+    }
+
+    /**
+     * @Route("/annonces/{slug}/edit", name = "annonce_edit")
+     * @param Annonce $annonce
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function edit(Request $request, EntityManagerInterface $manager, $slug): Response
+    {
+        $annonce = $this->getDoctrine()->getRepository(Annonce::class)->findOneBy(['slug' => $slug]);
+        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted($request) && $form->isValid()) {
+            //dump($annonce);
+            //$manager = $this->getDoctrine()->getManager();
+            foreach($annonce->getImages() as $imgOK){
+                $imgOK->setAnnonce($annonce);
+                $manager->persist($imgOK);
+            }
+            $manager->persist($annonce);
+            $manager->flush();
+            $this->addFlash('success', "Les modifications de l'annonce <strong>{$annonce->getSlug()}</strong> a été enregidtrée avec succès" );
+            return $this->redirectToRoute('annonce_show', [
+                'slug' => $annonce->getSlug()
+            ]);
+        }
+
+        return $this->render(
+            'annonce/edit.html.twig',[
+                'annonce' => $annonce,
+                'form' => $form->createView()
+            ]
+            );
     }
 
    

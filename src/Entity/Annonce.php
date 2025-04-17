@@ -3,14 +3,19 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnnonceRepository;
-
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ *      fields = { "tittle" }, 
+ *      message = "Une autre annonce possède déjà ce titre, veuillez le modifier"
+ * )
  */
 class Annonce
 {
@@ -18,11 +23,18 @@ class Annonce
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *                  min = 20, 
+     *                  max = 100, 
+     *                  minMessage = "Le titre doit faire plus de 20 cacactère", 
+     *                  maxMessage = "Le titre doit faire moins de 100 cacactère"
+     *               )
      */
     private $tittle;
 
@@ -38,11 +50,21 @@ class Annonce
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *                  min = 100, 
+     *                  max = 255, 
+     *                  minMessage = "Le titre doit faire plus de 20 cacactère", 
+     *                  maxMessage = "Le titre doit faire moins de 100 cacactère"
+     *               )
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *                  min = 100, 
+     *                  minMessage = "Le titre doit faire plus de 20 cacactère"
+     *               )
      */
     private $content;
 
@@ -58,6 +80,7 @@ class Annonce
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="annonce", orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $images;
 

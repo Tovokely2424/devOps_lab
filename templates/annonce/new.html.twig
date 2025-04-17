@@ -4,6 +4,7 @@
 {% endblock %}
 
 {#{% form_theme form _self %}'partial/theme.html.twig' a la place du self#}
+{% form_theme form 'annonce/_collection.html.twig' %}
 {% block body %}
 <div class="container">
     <h1 class="text-center">Création d'une nouvelle annonce</h1>
@@ -16,16 +17,8 @@
 </div>
 
 {% endblock %}
-{#
-{% block form_row %}
-  dump()
-    <div class="form-group">
-        {{ form_label(form)}}
-        {{ form_widget(form)}}
-    </div>
-{% endblock %}
-{% block text_widget %}
-    <input type="text" name="{{ full_name}}" id="{{ id}}" class="form-control">
-{% endblock %}
 
-#}
+{% block jsperso %}
+    <script src="/js/annonce.js">
+    </script>
+{% endblock %}

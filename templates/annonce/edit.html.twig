@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %} Edition de l'annonce {% endblock %}
+
+{% form_theme form 'annonce/_collection.html.twig' %}
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">Edition d'une annonce {{ annonce.tittle}}</h1>
+        <div class="w-75 mx-auto">
+
+            {{ form_start(form) }}
+            {{ form_widget(form)}}
+            {{ form_end(form)}}
+        </div>
+    </div>
+{% endblock %}
+{% block jsperso %}
+    <script src="/js/annonce.js">
+        
+    </script>
+{% endblock %}
