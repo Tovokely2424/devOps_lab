@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Annonce;
 use App\Form\ImageType;
+use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,18 +16,9 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class AnnonceType extends AbstractType
+class AnnonceType extends ApplicationType
 {
 
-    private function getConfiguration($title, $placeholder="", $options = []){
-        return array_merge([
-            'label' => $title,
-            'attr' => [
-                'placeholder' => $placeholder,
-            ]
-        
-        ], $options);
-    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

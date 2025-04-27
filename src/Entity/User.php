@@ -9,10 +9,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ *      fields = { "email" }, 
+ *      message = "Un compte lié à ce mail existe déjà. Cliquez ici pour recuperer votre compte"
+ * )
  * @method string getUserIdentifier()
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -26,21 +32,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez rensigner votre prenom")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez renseigner votre nom de famille")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Veuillez renseigner un email valide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(message="Url non valide")
      */
     private $picture;
 
@@ -48,14 +58,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $hash;
-
+    /**
+     * @Assert\EqualTo(propertyPath="hash", message="Le mot de passe et la confirmation ne correspondent pas")
+     */
+    public $passwordConfirm;
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *  min = 10,
+     * minMessage="Introduction trop court"
+     * )
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *  min = 80,
+     * minMessage="Vous devez avoir au moins 80 cartactère dans la description"
+     * )
      */
     private $description;
 

@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+	{#
 	<div>
 		<h2 class="mt-1 mb-4">Nos annonces!</h2>
 		<div class="row mt-1">
@@ -33,5 +34,41 @@
 				</div>
 			{% endfor %}
 		</div>
-	</div>
+	</div>#}
+	<div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+			{% for annonce in annonces %}
+			{% set url=path('annonce_show', {'slug' : annonce.slug}) %}
+            <div class="col-md-6 mt-3">
+                <div class="card p-3 py-4">
+                    
+					<div class="card-header">{{ annonce.rooms }}
+						chambres |
+						{{ annonce.price }}
+						&euro;
+					</div>
+					<div class="text-center">
+                        <img src="{{ annonce.converImage }} " width="500">
+                    </div>
+                    <div class="text-center mt-3">
+                        {#<span class="bg-secondary p-1 px-4 rounded text-white">Utilisateur</span>#}
+                        <h5 class="mt-2 mb-0">{{ annonce.tittle }} </h5>
+                        <span class="fonts">{{ annonce.introduction }}</span>
+                        <ul class="social-list">
+                            <li><i class="fa fa-facebook"></i></li>
+                            <li><i class="fa fa-dribbble"></i></li>
+                            <li><i class="fa fa-instagram"></i></li>
+                            <li><i class="fa fa-linkedin"></i></li>
+                            <li><i class="fa fa-google"></i></li>
+                        </ul>
+                        <div class="buttons">
+                            <button class="btn btn-outline-primary px-4">Message</button>
+                            <button class="btn btn-primary px-4 ms-3">Contact</button>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+			{% endfor %}
+        </div>
+    </div>
 {% endblock %}
