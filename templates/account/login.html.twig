@@ -3,30 +3,37 @@
 {% block title %}Se connecter{% endblock %}
 
 {% block body %}
-    <div class="row mt-3">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="bg-dark py-3 px-3">
-                {% if hasError %}
-                    <div class="alert alert-danger"><p>Email ou mot de passe incorrecte</p></div>
-                {% endif %}
-                <form action="{{ path('account_login') }}" method="post">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" name="_username" id="email" placeholder="Adresse email" class="form-control" value="{{ last_username}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Mot de passe </label>
-                        <input type="password" name="_password" id="password" placeholder="Mot de passe" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success mt-2">Se Connecter</button>
-                    </div>
-                </form>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-3 py-4">
+                    <div class="text-center mt-3">
+                        <h5 class="mt-2 mb-0"> Se connecter </h5>
+                        <hr>
+                        <div class="px-4 mt-1">
+                            {% if hasError %}
+                                <div class="alert alert-danger"><p>Email ou mot de passe incorrecte</p></div>
+                            {% endif %}
+                            <form action="{{ path('account_login') }}" method="post">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" name="_username" id="email" placeholder="Adresse email" class="form-control" value="{{ last_username}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Mot de passe </label>
+                                    <input type="password" name="_password" id="password" placeholder="Mot de passe" class="form-control" required>
+                                </div>
+
+                                <div class="buttons mt-4 mb-3">
+                                    <button type="submit" class="btn btn-outline-primary px-4">Enregistrer</button>
+                                    <button type="reset" class="btn btn-primary px-4 ms-3">Reinitialiser</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>        
+                </div>
             </div>
         </div>
-    </div>
-
-    
+    </div>    
     
 {% endblock %}

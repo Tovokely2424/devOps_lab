@@ -29,6 +29,9 @@ div.annonce_title h1, div.annonce_title p{
     border-radius:8px;
     cursor:pointer;
 }
+.form-control{
+    border: 1px solid #8E24AA;
+}
 
 .card:before{
     

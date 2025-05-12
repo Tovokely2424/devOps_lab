@@ -28,7 +28,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             {% if app.user %}
-                                <li><a class="dropdown-item" href="{{ path('account_profile') }}">Mon compte</a></li>
+                                <li><a class="dropdown-item" href="{{ path('account_profile', {'slug': app.user.slug}) }}">Mon compte</a></li>
                                 <li><a class="dropdown-item" href="{{ path('account_logout') }}">Se déconnecter</a></li>
                             {% else %}
                                 <li><a class="dropdown-item" href="{{ path('account_login') }}">Se connecter</a></li>
@@ -48,21 +48,23 @@
 
     {# Flash messages (avec Bootstrap 5 Toast) #}
     {% for label, messages in app.flashes %}
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto text-primary text-capitalize">{{ label }}</strong>
-                    <small class="text-muted">Maintenant</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                {% for message in messages %}
+        {% for message in messages %}
+            <div class="position-fixed top-50 end-0 translate-middle-y p-3" style="z-index: 1055;">
+                <div class="toast show mb-3" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="4000">
+                    <div class="toast-header bg-{{ label }} text-white">
+                        <strong class="me-auto text-capitalize">{{ label }}</strong>
+                        <small>Maintenant</small>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Fermer"></button>
+                    </div>
                     <div class="toast-body text-center">
                         {{ message|raw }}
                     </div>
-                {% endfor %}
+                </div>
             </div>
-        </div>
+        {% endfor %}
     {% endfor %}
+
+
 </header>
 {#
 {% for label, messages in app.flashes %}

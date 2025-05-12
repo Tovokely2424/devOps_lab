@@ -47,19 +47,19 @@
 					</button>
 				</div>
 			</div>
+			{% set a = annonce.author %}
 			<div class="col">
 				<div class="row">
 					<div class="col-4">
-						<img src="https://picsum.photos/100/90" alt="Image du propriétaire" set="">
+						<img src="{{ a.picture}}" alt="Image de {{ a.fullName}}" set="">
 					</div>
 					<div class="col">
-						<h3>Joseph DUPONT</h3>
-						<span class="btn btn-dark btn-sm">3 annonces</span>
+						<h3>{{ a.fullName }}</h3>
+						<span class="btn btn-dark btn-sm">{{ a.annonces | length }} annonces</span>
 						
 					</div>
 				</div>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis minus, aperiam reiciendis, placeat magnam quisquam tempora dolorem natus facilis explicabo sequi optio debitis beatae hic asperiores. Quis omnis nobis blanditiis.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, dolor quam. Laboriosam, enim veniam nihil officiis accusantium suscipit eaque deleniti, voluptas atque deserunt ullam alias nisi consectetur, eos provident. Labore?</p>
+				<p class="fonts">{{ a.description | raw }}</p>
 			</div>
 		</div>
 	</div>
