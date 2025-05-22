@@ -8,12 +8,12 @@ use App\Entity\Image;
 use App\Entity\Annonce;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private $encoder;
-    public function __construct(UserPasswordEncoderInterface $encoder){
+    public function __construct(UserPasswordHasherInterface $encoder){
         $this->encoder = $encoder;
     }
     public function load(ObjectManager $manager): void
@@ -24,9 +24,9 @@ class AppFixtures extends Fixture
         $gender = ['men', 'women'];
         for($i = 0; $i< 10 ; $i++){
             $desc = '<p>'.join('</p><p>', $faker->paragraphs(5)).'</p>';
-            $pic = "https://randomuser.me/api/portraits/".$gender[mt_rand(0,1)]."/". $i+1 .".jpg";
+            $pic = "https://randomuser.me/api/portraits/" . $gender[mt_rand(0, 1)] . "/" . ($i + 1) . ".jpg";
             $user = new User();
-            $hash = $this->encoder->encodePassword($user, 'password');
+            $hash = $this->encoder->hashPassword($user, 'password');
             $user->setLastName($faker->lastname)
                 ->setFirstName($faker->firstName)
                 ->setEmail($faker->email)

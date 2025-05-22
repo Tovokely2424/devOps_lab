@@ -1,19 +1,24 @@
 {% extends "base.html.twig" %}
 {% block title %}Mon compte{% endblock %}
 {% block body %}
-    <div class="container mt-5">
+    <div class="container mt-3">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
+            <div class="col-md-10">
                 <div class="card p-3 py-4">
-                    <div class="text-center">
-                        <img src="{{ user.picture }}" width="200" class="rounded-circle">
+                    <div class="row text-center justify-content-center align-items-center">
+                        <img src="{{ user.picture }}" width="200" class="rounded-circle col-3 ml-3">
+                        <div class="col m-1">
+                            <span class="bg-primary p-1 px-4 rounded text-white">Utilisateur | <strong>{{user.annonces | length}} annonces</strong></span>
+                            <h5 class="mt-2 mb-0 title_important">{{ user.lastName | upper }} {{ user.firstName}} </h5>
+                            <span>{{ user.introduction }}</span>
+                        </div>
                     </div>
                     <div class="text-center mt-3">
-                        <span class="bg-secondary p-1 px-4 rounded text-white">Utilisateur</span>
+                        {#<span class="bg-secondary p-1 px-4 rounded text-white">Utilisateur</span>
                         <h5 class="mt-2 mb-0">{{ user.lastName | upper }} {{ user.firstName}} </h5>
-                        <span>{{ user.introduction }}</span>
+                        <span>{{ user.introduction }}</span>#}
                         <div class="px-4 mt-1">
-                            <p class="fonts">{{ user.description}}</p>
+                            <div class="fonts">{{ user.description | raw}}</div>
                         </div>
                         <ul class="social-list">
                             <li><i class="fa fa-facebook"></i></li>
@@ -27,6 +32,23 @@
                             <button class="btn btn-primary px-4 ms-3">Contact</button>
                         </div>
                     </div>        
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-1">
+            <div class="col-md-10">
+                <div class="card p-3 py-4 text-center">
+                    <h5 class="title_important">Les annonces de {{user.fullName}}</h5>
+                    <hr>
+                    <div class="row">
+                        {% if user.annonces | length > 0 %}
+                            {% for annonce in user.annonces %}
+                                {% include "annonce/_annonce.html.twig" %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="fonts">{{user.fullName}} n'a pas encore d'annonce publié!</div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

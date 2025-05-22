@@ -19,6 +19,17 @@ div.annonce_title h1, div.annonce_title p{
     text-shadow: 3px 3px 3px rgb(0, 0, 0, 0.5) ;
 }
 
+.author{
+    max-width: 128px;
+    max-height: 128px;
+    border-radius: 50%;
+}
+
+.author-medium{
+    max-width: 64px;
+    max-height: 64px;
+    border-radius: 50%;
+}
 
 /*profile*/
 
@@ -66,8 +77,14 @@ div.annonce_title h1, div.annonce_title p{
 }
 
 
-.fonts{
+.fonts, .fonts p{
     font-size:11px;
+}
+
+.title_important{
+    font-size:24px;
+    color: #8E24AA;
+    font-weight: bolder;
 }
 
 .social-list{

@@ -1,0 +1,23 @@
+{% set url=path('annonce_show', {'slug' : annonce.slug}) %}
+<div class="col-md-6 mt-3">
+    <div class="card p-3 py-4">
+        
+        <div class="card-header">{{ annonce.rooms }}
+            chambres |
+            {{ annonce.price }}
+            &euro;
+        </div>
+        <div class="text-center">
+            <img src="{{ annonce.converImage }} " width="500">
+        </div>
+        <div class="text-center mt-3">
+            {#<span class="bg-secondary p-1 px-4 rounded text-white">Utilisateur</span>#}
+            <a href="{{ path('annonce_show', {'slug' : annonce.slug})}}"><h5 class="mt-2 mb-0">{{ annonce.tittle }} </h5></a>
+            <span class="fonts">{{ annonce.introduction }}</span>
+            <div class="buttons mt-3">
+                <button class="btn btn-outline-primary px-4">Message</button>
+                <button class="btn btn-primary px-4 ms-3">Contact</button>
+            </div>
+        </div>        
+    </div>
+</div>

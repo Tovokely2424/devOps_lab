@@ -19,7 +19,7 @@
 	<div>
 		<div class="row">
 			<div class="col-md-8 mb-2">
-				{{ annonce.content | raw}}
+				<div class="fonts">{{ annonce.content | raw}}</div>
 				<div id="carouselExampleCaptions" class="carousel slide">
 					<div class="carousel-indicators">
 						<button type="button" data-target="#carouselExampleCaptions" data-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -32,7 +32,7 @@
 							<img src="{{ annonce.converImage }}" class="d-block w-100" alt="...">
 							<div class="carousel-caption d-none d-md-block">
 								<h5>{{ annonce.tittle }}</h5>
-								<p>{{ annonce.introduction }}</p>
+								<div class="fonts">{{ annonce.introduction }}</div>
 							</div>
 						</div>
 						{% endfor %}
@@ -49,9 +49,9 @@
 			</div>
 			{% set a = annonce.author %}
 			<div class="col">
-				<div class="row">
-					<div class="col-4">
-						<img src="{{ a.picture}}" alt="Image de {{ a.fullName}}" set="">
+				<div class="row mb-3 align-items-center">
+					<div class="col-3">
+						<img src="{{ a.picture}}" alt="Image de {{ a.fullName}}"  class="author author-medium" set=""/>
 					</div>
 					<div class="col">
 						<h3>{{ a.fullName }}</h3>
@@ -59,7 +59,7 @@
 						
 					</div>
 				</div>
-				<p class="fonts">{{ a.description | raw }}</p>
+				<div class="fonts">{{ a.description | raw }}</div>
 			</div>
 		</div>
 	</div>
