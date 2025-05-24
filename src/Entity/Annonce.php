@@ -51,7 +51,7 @@ class Annonce
     /**
      * @ORM\Column(type="text")
      * @Assert\Length(
-     *                  min = 100, 
+     *                  min = 20, 
      *                  max = 255, 
      *                  minMessage = "Le titre doit faire plus de 20 cacactère", 
      *                  maxMessage = "Le titre doit faire moins de 100 cacactère"

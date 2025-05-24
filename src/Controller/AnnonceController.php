@@ -30,33 +30,39 @@ class AnnonceController extends AbstractController
 
      /**
      * Permet de creer une annonce
-     * @Route("/annonces/creer", "annonce_new")
+     * @Route("/annonces/creer", name="annonce_new")
      */
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
-        //$title = $request->resquest->get('title');
-        $annonce = new Annonce();
-        $form = $this->createForm(AnnonceType::class, $annonce);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted($request) && $form->isValid()) {
-            //dump($annonce);
-            //$manager = $this->getDoctrine()->getManager();
-            foreach($annonce->getImages() as $imgOK){
-                $imgOK->setAnnonce($annonce);
-                $manager->persist($imgOK);
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('account_login');
+        }
+        else {
+            //$title = $request->resquest->get('title');
+            $annonce = new Annonce();
+            $form = $this->createForm(AnnonceType::class, $annonce);
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted($request) && $form->isValid()) {
+                //dump($annonce);
+                //$manager = $this->getDoctrine()->getManager();
+                foreach($annonce->getImages() as $imgOK){
+                    $imgOK->setAnnonce($annonce);
+                    $manager->persist($imgOK);
+                }
+                $annonce->setAuthor($this->getUser());
+                $manager->persist($annonce);
+                $manager->flush();
+                $this->addFlash('success', "L'annonce <strong>{$annonce->getSlug()}</strong> a été ajouté avec succès" );
+                return $this->redirectToRoute('annonce_show', [
+                    'slug' => $annonce->getSlug()
+                ]);
             }
-            $manager->persist($annonce);
-            $manager->flush();
-            $this->addFlash('success', "L'annonce <strong>{$annonce->getSlug()}</strong> a été ajouté avec succès" );
-            return $this->redirectToRoute('annonce_show', [
-                'slug' => $annonce->getSlug()
+            
+            return $this->render('annonce/new.html.twig', [
+                'form' => $form->createView()
             ]);
         }
-        
-        return $this->render('annonce/new.html.twig', [
-            'form' => $form->createView()
-        ]);
     }
 
     /**

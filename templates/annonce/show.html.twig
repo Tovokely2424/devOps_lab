@@ -51,10 +51,14 @@
 			<div class="col">
 				<div class="row mb-3 align-items-center">
 					<div class="col-3">
-						<img src="{{ a.picture}}" alt="Image de {{ a.fullName}}"  class="author author-medium" set=""/>
+						<a href="{{ path('user_show', {'slug' : a.slug })}}">
+							<img src="{{ a.picture}}" alt="Image de {{ a.fullName}}"  class="author author-medium" set=""/>
+						</a>
 					</div>
 					<div class="col">
-						<h3>{{ a.fullName }}</h3>
+						<a href="{{ path('user_show', {'slug' : a.slug })}}">
+							<h3>{{ a.fullName }}</h3>
+						</a>
 						<span class="btn btn-dark btn-sm">{{ a.annonces | length }} annonces</span>
 						
 					</div>

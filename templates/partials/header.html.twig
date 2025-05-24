@@ -29,6 +29,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             {% if app.user %}
                                 <li><a class="dropdown-item" href="{{ path('account_profile', {'slug': app.user.slug}) }}">Mon compte</a></li>
+                                <li><a class="dropdown-item" href="{{ path('annonce_new') }}">Creer une annonce</a></li>
                                 <li><a class="dropdown-item" href="{{ path('account_logout') }}">Se déconnecter</a></li>
                             {% else %}
                                 <li><a class="dropdown-item" href="{{ path('account_login') }}">Se connecter</a></li>

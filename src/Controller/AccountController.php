@@ -46,12 +46,13 @@ class AccountController extends AbstractController
     /**
      * Permet d'afficher le profile de l'utilisateur
      * @Route("/compte/{slug}", name="account_profile")
-     */
+     */ 
+    
     public function profile(){
         $user = $this->getUser();
         return $this->render('account/profile.html.twig',[
             'user'=>$user
-        ]);
+            ]);
     }
 
     /**
