@@ -91,9 +91,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $annonces;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="users")
+     */
+    private $userRoles;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
     }
     /**
      * Permet d'initialiser le slug d'un utilisateur
@@ -245,7 +251,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        
+        $roles = $this->userRoles->map(function($role) {
+            return $role->getTitle();
+        })->toArray();
+        $roles[] = 'ROLE_USER'; // On ajoute le rôle par défaut
+        return $roles;
     }
 
     public function getPassword() : String
@@ -276,5 +287,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __call($name, $arguments)
     {
         // TODO: Implement @method string getUserIdentifier()
+    }
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Role $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): self
+    {
+        if ($this->userRoles->removeElement($userRole)) {
+            $userRole->removeUser($this);
+        }
+
+        return $this;
     }
 }

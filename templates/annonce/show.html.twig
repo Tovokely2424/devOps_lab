@@ -13,6 +13,9 @@
 				<strong>{{ annonce.price }} &euro;</strong>	par nuit
 			</p>
 			<a href="#" class="btn btn-light mb-1">Reserver !</a>
+			{% if app.user and app.user == annonce.author %}
+				<a href="{{path('annonce_edit', {'slug' : annonce.slug })}}" class="btn btn-secondary mb-1">Modifier l'annonce</a>
+			{% endif %}
 		</div>
 	</div>
 	<hr>

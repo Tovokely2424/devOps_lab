@@ -6,7 +6,8 @@ use App\Entity\Image;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
-use Doctrine\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,14 +83,15 @@ class AnnonceController extends AbstractController
 
     /**
      * @Route("/annonces/{slug}/edit", name = "annonce_edit")
+     * @security("is_granted('ROLE_USER') and user===annonce.getAuthor()", message="Vous n'avez pas le droit de modifier cette annonce")
+     * @ParamConverter("annonce", options={"mapping": {"slug": "slug"}})
      * @param Annonce $annonce
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function edit(Request $request, EntityManagerInterface $manager, $slug): Response
+    public function edit(Request $request, EntityManagerInterface $manager, Annonce $annonce): Response
     {
-        $annonce = $this->getDoctrine()->getRepository(Annonce::class)->findOneBy(['slug' => $slug]);
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 

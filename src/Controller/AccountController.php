@@ -9,9 +9,11 @@ use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -58,9 +60,10 @@ class AccountController extends AbstractController
     /**
      * Permet d'editer un profil utilisateur
      * @Route("/compte/{slug}/edit", name="account_edit")
+     * @ParamConverter(User::class, options={"mapping": {"slug": "slug"}})
+     * @IsGranted("ROLE_USER")
      */
-    public function edit_profile(Request $request, EntityManagerInterface $manager, $slug){
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['slug'=>$slug]);
+    public function edit_profile(Request $request, EntityManagerInterface $manager, User $user){
         $form = $this->createForm(EditionType::class, $user);
         $form->handleRequest($request);
 
@@ -104,6 +107,7 @@ class AccountController extends AbstractController
     /**
      * Permet de modifier le mot de passe
      * @Route("/compte/{slug}/password_update", name="account_password")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function update_password(UserPasswordHasherInterface $hasher, Request $request, EntityManagerInterface $manager, $slug){

@@ -15,8 +15,13 @@
             <a href="{{ path('annonce_show', {'slug' : annonce.slug})}}"><h5 class="mt-2 mb-0">{{ annonce.tittle }} </h5></a>
             <span class="fonts">{{ annonce.introduction }}</span>
             <div class="buttons mt-3">
-                <button class="btn btn-outline-primary px-4">Message</button>
-                <button class="btn btn-primary px-4 ms-3">Contact</button>
+            <a href="{{ path('annonce_show', {'slug' : annonce.slug})}}"><button class="btn btn-outline-primary px-4">PLus de détails</button></a>
+                {% if app.user and app.user == annonce.author %}
+                    
+                    <a href="{{ path('annonce_edit', {'slug' : annonce.slug })}}"><button class="btn btn-primary px-4 ms-3">Modifier l'annonce</button></button></a>
+			    {% endif %}
+                
+                
             </div>
         </div>        
     </div>
