@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block title %}Page non trouvé{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center">Page non trouvée</h1>
+            <p class="text-center">Désolé, la page que vous cherchez n'existe pas.</p>
+            <p class="text-center"><a href="{{ path('homepage') }}" class="btn btn-primary">Retour à l'accueil</a></p>
+            <p class="text-center"><a href="{{ path('annonces') }}">Voir nos Annonces</a></p>
+        </div>
+    </div>
+{% endblock %}

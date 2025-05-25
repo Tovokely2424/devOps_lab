@@ -74,11 +74,15 @@ class AnnonceController extends AbstractController
     public function show($slug, AnnonceRepository $repos):Response
     {
         $annonce = $repos->findOneBySlug($slug);
+        if (!$annonce) {
+            throw $this->createNotFoundException("L'annonce demandée n'existe pas");
+        }
         $images = $annonce->getImages();
         return $this->render('annonce/show.html.twig', [
             'annonce'=> $annonce,
             'images'=> $images
         ]);
+        
     }
 
     /**
