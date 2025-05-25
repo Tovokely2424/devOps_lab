@@ -118,5 +118,26 @@ class AnnonceController extends AbstractController
             );
     }
 
+    /**
+     * Permet de  supprimer une annonce
+     * @Route("/annonces/{slug}/delete", name="annonce_delete")
+     * @Security("is_granted('ROLE_USER') and user===annonce.getAuthor()", message="Vous n'avez pas le droit de supprimer cette annonce")
+     * @ParamConverter("annonce", options={"mapping": {"slug": "slug"}})
+     * @param Annonce $annonce
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function delete(EntityManagerInterface $manager, Annonce $annonce): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('account_login');
+        }
+        $manager->remove($annonce);
+        $manager->flush();
+        $this->addFlash('success', "L'annonce <strong>{$annonce->getSlug()}</strong> a été supprimée avec succès" );
+        return $this->redirectToRoute('account_profile', [
+            'slug' => $this->getUser()->getSlug()
+        ]);
+    }
    
 }
