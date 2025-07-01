@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation pour {{annonce.tittle}}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-3 py-4">
+                    <div class="text-center mt-3">
+                        <h5 class="mt-2 mb-0"> Reservation de l'annonce <span>{{annonce.tittle}}</span>  </h5>
+                        <hr>
+                        <div class="px-4 mt-1">
+                            {{form_start(form)}}
+                                <div class="form-group">
+                                    {{form_row(form.startDate)}}
+                                </div>
+                                <div class="form-group">
+                                    {{form_row(form.endDate)}}
+                                </div>
+                                <div class="form-group">
+                                    {{form_row(form.comment)}}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="mt-2 mb-0">
+                                            Montant total : <strong></strong> &euro;
+                                        </h5>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="mt-2 mb-0">
+                                            Nombre de jours : <strong>... </strong> days
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="buttons mt-4 mb-3">
+                                    <button type="submit" class="btn btn-outline-primary px-4">Enregistrer</button>
+                                    <button type="reset" class="btn btn-primary px-4 ms-3">Reinitialiser</button>
+                                </div>
+                            {{form_end(form)}}
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

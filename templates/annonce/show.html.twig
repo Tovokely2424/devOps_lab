@@ -12,7 +12,7 @@
 				<strong>{{ annonce.rooms }} chambres</strong> pour
 				<strong>{{ annonce.price }} &euro;</strong>	par nuit
 			</p>
-			<a href="#" class="btn btn-light mb-1">Reserver !</a>
+			<a href="{{ path('booking_create', {'slug' : annonce.slug })}}" class="btn btn-light mb-1">Reserver !</a>
 			{% if app.user and app.user == annonce.author %}
 				<a href="{{path('annonce_edit', {'slug' : annonce.slug })}}" class="btn btn-secondary mb-1">Modifier l'annonce</a>
 				<a href="{{ path('annonce_delete', {'slug': annonce.slug })}}" class="btn btn-danger" onclick="return confirm(`Etes vous sur de vouloir supprimer {{ annonce.tittle}} ?`)">Supprimer l'annonce</a>

@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+{% set annonce = booking.bookingAnnonce %}
+{% set author = annonce.author %}
+{% block title %}Reservation sur {{ annonce.tittle}}{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        <h5 class="mt-2 mb-0 text-center"> Reservation de l'annonce <span>{{annonce.tittle}}</span> </h5>
+        <hr>
+        {% if app.request.query.get('success') %}
+            <div class="alert alert-success">
+                <h4 class="alert-heading text-center">Bravo !</h4>
+                <p>Votre reservation auprè de <strong><a href=" {{ path('user_show', {'slug' : author.slug})}}">{{ author.fullName}}</a></strong>
+                pour l'annonce <strong><a href="{{ path('annonce_show', {'slug' : annonce.slug})}}">{{ annonce.tittle}}</a></strong> a bien été prise en compte.</p>
+                </p>
+            </div>
+        {% endif %}
+        
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-5">
+                <div class="text-center mt-3">
+                    <h5 class="mt-2 mb-0"> Reservation (n° {{ booking.id}}) </h5>
+                    <hr>
+                    <div class="alert alert-light px-4 mt-1">
+                        <dl class="row">
+                            <dt class="col-md-4">Numéro de la résérvation : </dt>
+                            <dd class="col-md-8">{{ booking.id}}</dd>
+                            <dt class="col-md-4">Date de début : </dt>
+                            <dd class="col-md-8">{{ booking.startDate | date('d/m/Y')}}</dd>
+                            <dt class="col-md-4">Date de départ prévu : </dt>
+                            <dd class="col-md-8">{{ booking.endDate | date('d/m/Y')}}</dd>
+                            <dt class="col-md-4">Durée de la réservation : </dt>
+                            <dd class="col-md-8">{{ booking.duration}}</dd>
+                            <dt class="col-md-4">Montant total : </dt>
+                            <dd class="col-md-8">{{ booking.amount}} &euro;</dd>
+                            <dt class="col-md-4">Commenatire : </dt>
+                            <dd class="col-md-8">{{ booking.comment}}</dd>
+                        </dl>
+                    </div>
+                    <h5 class="mt-2 mb-0"> Rôles </h5>
+                    <hr>
+                    <div class="alert alert-light px-4 mt-1">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="{{ author.picture}}" alt="Avatar de {{ author.fullName}}" class="author author-medium">
+                            </div>
+                            <div class="col">
+                                <a href="{{ path('user_show', {'slug' : author.slug})}}">{{ author.fullName}}</a>
+                                <div>
+                                    <span class="btn btn-dark btn-sm">{{ author.annonces | length}} annonces</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {{ author.description | raw}}
+                        <a href="{{ path('user_show', {'slug' : author.slug})}}" class="btn btn-dark"> Plus de détails sur {{ author.firstname}}</a>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-7">
+                <h5 class="mt-2 mb-0 text-center">Votre hébergement</h5>
+                <hr>
+                <div class="alert alert-light px-4 mt-1">
+                        <h5 class="mt-2 mb-2">{{annonce.tittle}}</h5>
+                        <img src="{{ annonce.converImage}}" alt="Image de {{ annonce.tittle}}" class="fluid">
+                        
+                        <div class="mt-3">
+                            <p>{{annonce.content | raw}}</p>
+
+                            <a href="{{path('annonce_show', {'slug' : annonce.slug})}}" class="btn btn-dark">Plus de détails</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

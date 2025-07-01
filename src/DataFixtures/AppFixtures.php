@@ -6,6 +6,7 @@ use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Annonce;
+use App\Entity\Booking;
 use App\Entity\Role;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -82,6 +83,34 @@ class AppFixtures extends Fixture
 
                 $manager->persist($image);
             }
+
+            for ($kj=0; $kj < mt_rand(0, 10); $kj++) { 
+                $booking = new Booking();
+                $createdAt = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-6 months'));
+                $startDate = $faker->dateTimeBetween('-3 months');
+                $duration = mt_rand(0, 10);
+                $endDate = (clone $startDate)->modify("+$duration days");
+                $amount = $annonce->getPrice() * $duration;
+                if($kj%2 == 0){
+                    $comment = $faker->paragraph(2);
+                } else {
+                    $comment = null;        
+                }
+                $comment = $faker->paragraph();
+                $booker = $users[mt_rand(0, count($users) - 1)];
+                $booking->setBooker($booker)
+                        ->setBookingAnnonce($annonce)
+                        ->setStartDate($startDate)
+                        ->setEndDate($endDate)
+                        ->setAmount($amount)
+                        ->setCreatedAt($createdAt)
+                        ->setComment($comment);
+                        
+                // On s'assure que le booker n'est pas l'auteur de l'annonce
+                $manager->persist($booking);    
+                
+            }
+
             $manager->persist($annonce);
         }
         $manager->flush();

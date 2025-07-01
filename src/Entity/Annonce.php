@@ -90,9 +90,15 @@ class Annonce
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="bookingAnnonce")
+     */
+    private $starDate;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->starDate = new ArrayCollection();
     }
 
     /**
@@ -235,6 +241,36 @@ class Annonce
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getStarDate(): Collection
+    {
+        return $this->starDate;
+    }
+
+    public function addStarDate(Booking $starDate): self
+    {
+        if (!$this->starDate->contains($starDate)) {
+            $this->starDate[] = $starDate;
+            $starDate->setBookingAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStarDate(Booking $starDate): self
+    {
+        if ($this->starDate->removeElement($starDate)) {
+            // set the owning side to null (unless already changed)
+            if ($starDate->getBookingAnnonce() === $this) {
+                $starDate->setBookingAnnonce(null);
+            }
+        }
 
         return $this;
     }
