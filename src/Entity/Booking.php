@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony/Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
@@ -33,6 +33,8 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("\DateTimeInterface")
+     * @Assert\NotBlank(message="La date de début ne peut pas être vide.")
      * @Assert\GreaterThanOrEqual("today", message="La date de début doit être supérieure ou égale à aujourd'hui.")
      * @Assert\LessThan(propertyPath="endDate", message="La date de début doit être inférieure à la date de fin.")
      */
@@ -40,6 +42,7 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("\DateTimeInterface")
      * @Assert\GreaterThan(propertyPath="startDate", message="La date de fin doit être supérieure à la date de début.")
      * @Assert\LessThanOrEqual("next year", message="La date selectionnés doit être cette année.")
      */
@@ -71,6 +74,38 @@ class Booking
         if(empty($this->amount)){
             $this->amount = $this->bookingAnnonce->getPrice() * $this->getDuration();
         }
+    }
+
+    //Connaitre si l'ppartement est reservable
+    public function isBookableDates(){
+            if (!$this->bookingAnnonce) {
+            throw new \LogicException("Aucune annonce liée à cette réservation.");
+        }
+
+        $unavailableDays = $this->bookingAnnonce->getNotAvailableDays();
+        $bookingDays = $this->getDays();
+
+        foreach ($bookingDays as $day) {
+            if (in_array($day->format('Y-m-d'), $unavailableDays)) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    public function getDays() : array{
+        $days = [];
+        $mysreservationDays = range(
+            $this->startDate->getTimestamp(),
+            $this->endDate->getTimestamp(),
+            24*60*60 // 24 heures en secondes   
+        );
+        $days = array_map(function ($dayTimestamp) {
+            return new \DateTime(date('Y-m-d', $dayTimestamp));
+        }, $mysreservationDays);
+        return $days;
     }
 
     public function getDuration(): int

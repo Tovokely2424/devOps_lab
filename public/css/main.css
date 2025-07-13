@@ -120,3 +120,7 @@ div.annonce_title h1, div.annonce_title p{
        color:#fff;
         height:40px;
 }
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
+     background-color: firebrick !important;
+}

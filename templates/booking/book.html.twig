@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Reservation pour {{annonce.tittle}}{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
 {% block body %}
     <div class="container mt-5">
         <div class="row d-flex justify-content-center">
@@ -13,10 +15,10 @@
                         <div class="px-4 mt-1">
                             {{form_start(form)}}
                                 <div class="form-group">
-                                    {{form_row(form.startDate)}}
-                                </div>
+                                    {{form_row(form.startDate, {'attr': {'class': 'form-control'}})}}
+                                </div>  
                                 <div class="form-group">
-                                    {{form_row(form.endDate)}}
+                                    {{form_row(form.endDate, {'attr': {'class': 'form-control'}})}}
                                 </div>
                                 <div class="form-group">
                                     {{form_row(form.comment)}}
@@ -24,12 +26,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h5 class="mt-2 mb-0">
-                                            Montant total : <strong></strong> &euro;
+                                            Montant total : <strong id="amount"></strong> &euro;
                                         </h5>
                                     </div>
                                     <div class="col-md-6">
                                         <h5 class="mt-2 mb-0">
-                                            Nombre de jours : <strong>... </strong> days
+                                            Nombre de jours : <strong id="days">... </strong> days
                                         </h5>
                                     </div>
                                 </div>
@@ -44,4 +46,37 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block jsperso %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function(){
+            $('#booking_startDate, #booking_endDate').datepicker({
+                    format: 'dd/mm/yyyy',
+                    autoclose: true,
+                    todayHighlight: true,
+                    datesDisabled: [
+                        {% for day in annonce.notAvailableDays %}
+                            "{{ day.format('d/m/Y')}}",
+                        {% endfor %}
+                    ],
+                    startDate: new Date(),
+            });
+            $('#booking_startDate, #booking_endDate').on('change', calculateAmount)
+        });
+        function calculateAmount(){
+            const DAY_TIME = 24 * 60 * 60 * 1000;
+            let startStr = $('#booking_startDate').val();
+            let endStr = $('#booking_endDate').val();
+            const startDate = new Date(startStr.replace(/(\d+)\/(\d+)\/(\d{4})/, "$3-$2-$1"));
+            const endDate = new Date(endStr.replace(/(\d+)\/(\d+)\/(\d{4})/, "$3-$2-$1"));
+            if(startDate && endDate && startDate < endDate){
+                const interval = endDate.getTime() - startDate.getTime();
+                const days = interval / DAY_TIME;
+                const amount = days * {{ annonce.price }}
+                $('#days').text(days);
+                $('#amount').text(amount.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+            }
+        }
+    </script>
 {% endblock %}

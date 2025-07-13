@@ -93,12 +93,12 @@ class Annonce
     /**
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="bookingAnnonce")
      */
-    private $starDate;
+    private $bookings;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->starDate = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
     /**
@@ -112,6 +112,24 @@ class Annonce
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->tittle);
         }
+    }
+
+    public function getNotAvailableDays(): array
+    {
+        $notAvailableDays = [];
+        foreach ($this->bookings as $booking) {
+            $resultat = range(
+                $booking->getStartDate()->getTimestamp(),
+                $booking->getEndDate()->getTimestamp(),
+                24 * 60 * 60 // 24 heures en secondes
+            );
+            $days = array_map(function($timestamp){
+                return new \DateTime(date('Y-m-d', $timestamp));
+            }, $resultat);
+            $notAvailableDays = array_merge($notAvailableDays, $days);
+            
+        }
+        return $notAvailableDays;
     }
 
     public function getId(): ?int
@@ -248,27 +266,27 @@ class Annonce
     /**
      * @return Collection<int, Booking>
      */
-    public function getStarDate(): Collection
+    public function getBookings(): Collection
     {
-        return $this->starDate;
+        return $this->bookings;
     }
 
-    public function addStarDate(Booking $starDate): self
+    public function addBooking(Booking $booking): self
     {
-        if (!$this->starDate->contains($starDate)) {
-            $this->starDate[] = $starDate;
-            $starDate->setBookingAnnonce($this);
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setBookingAnnonce($this);
         }
 
         return $this;
     }
 
-    public function removeStarDate(Booking $starDate): self
+    public function removeBooking(Booking $booking): self
     {
-        if ($this->starDate->removeElement($starDate)) {
+        if ($this->bookings->removeElement($booking)) {
             // set the owning side to null (unless already changed)
-            if ($starDate->getBookingAnnonce() === $this) {
-                $starDate->setBookingAnnonce(null);
+            if ($booking->getBookingAnnonce() === $this) {
+                $booking->setBookingAnnonce(null);
             }
         }
 

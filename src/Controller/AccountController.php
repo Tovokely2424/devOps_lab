@@ -7,6 +7,7 @@ use App\Form\EditionType;
 use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
+use App\Repository\BookingRepository;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -133,5 +134,21 @@ class AccountController extends AbstractController
                 'form'=>$form->createView()
             ]
         );
+    }
+
+    #[Route("/compte/{slug}/bookings", name : "account_bookings")]
+
+    public function bookings(BookingRepository $book_repo) : Response
+    {
+        $user = $this->getUser();
+        $bookings = $book_repo->findBy(['booker' => $user], ['createdAt' => 'DESC']);
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour voir vos réservations.');
+        }
+
+        return $this->render('account/bookings.html.twig', [
+            'bookings' => $bookings,
+            'user' => $user
+        ]);
     }
 }
