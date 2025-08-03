@@ -1,12 +1,10 @@
-html, body{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background:#eee;
-}
-.containner{
-    width: 90%;
-    margin: auto;
+/*css de la partie acceuil */
+/* =======================================
+   ========== VARIABLES ROOT =============
+   ======================================= */
+:root {
+  --navbar-height: 140px;
+  --color-marque : #0f737a;
 }
 
 div.annonce_title{
@@ -17,6 +15,12 @@ div.annonce_title{
 div.annonce_title h1, div.annonce_title p{
     color: azure;
     text-shadow: 3px 3px 3px rgb(0, 0, 0, 0.5) ;
+}
+
+#greatTitle{
+    font-size: 4rem;
+    font-weight: bolder;
+    color: var(--color-marque);
 }
 
 .author{
@@ -41,7 +45,7 @@ div.annonce_title h1, div.annonce_title p{
     cursor:pointer;
 }
 .form-control{
-    border: 1px solid #8E24AA;
+    border: var(--color-marque) solid 1px;
 }
 
 .card:before{
@@ -52,7 +56,7 @@ div.annonce_title h1, div.annonce_title p{
     top:0;
     width:4px;
     height:100%;
-    background-color:#E1BEE7;
+    background-color:#8fc6ca;
     transform:scaleY(1);
     transition:all 0.5s;
     transform-origin: bottom
@@ -66,7 +70,7 @@ div.annonce_title h1, div.annonce_title p{
     top:0;
     width:4px;
     height:100%;
-    background-color:#8E24AA;
+    background-color:var(--color-marque);
     transform:scaleY(0);
     transition:all 0.5s;
     transform-origin: bottom
@@ -83,7 +87,7 @@ div.annonce_title h1, div.annonce_title p{
 
 .title_important{
     font-size:24px;
-    color: #8E24AA;
+    color: var(--color-marque);
     font-weight: bolder;
 }
 
@@ -96,31 +100,279 @@ div.annonce_title h1, div.annonce_title p{
 
 .social-list li{
     padding:10px;
-    color:#8E24AA;
+    color:var(--color-marque);
     font-size:19px;
 }
 
 
 .buttons button:nth-child(1){
-       border:1px solid #8E24AA !important;
-       color:#8E24AA;
+       border:1px solid var(--color-marque) !important;
+       color: var(--color-marque);
        height:40px;
 }
 
 .buttons button:nth-child(1):hover{
-       border:1px solid #8E24AA !important;
+       border:1px solid var(--color-marque) !important;
        color:#fff;
        height:40px;
-       background-color:#8E24AA;
+       background-color: var(--color-marque);
 }
 
 .buttons button:nth-child(2){
-       border:1px solid #8E24AA !important;
-       background-color:#8E24AA;
+       border:1px solid var(--color-marque) !important;
+       background-color:var(--color-marque);
        color:#fff;
         height:40px;
 }
 
 .datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{
      background-color: firebrick !important;
+}
+
+.marque{
+    color: var(--color-marque);
+    font-weight: bolder;
+}
+
+/* =======================================
+   ============ GLOBAL RULES =============
+   ======================================= */
+html,
+body {
+  overflow-x: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.section-offset {
+  padding-top: var(--navbar-height) !important;
+}
+
+.hover-bg-light:hover {
+  background-color: var(--bs-light) !important;
+}
+
+.section-pill {
+  background-color: #e9f3ff !important;
+  color: #006cf1 !important;
+}
+
+.py-7 {
+  padding-top: 5rem !important;
+  padding-bottom: 5rem !important;
+}
+
+.fs-7 {
+  font-size: 0.85rem !important;
+}
+
+.form-control::placeholder {
+  color: #a7a7a7;
+  opacity: 1;
+}
+
+.highlight {
+  background-image: linear-gradient(120deg, #83b9ff84 0%, #83b9ff2e 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 35%;
+  background-position: 0 70%;
+}
+
+/* =======================================
+   ============ GRADIENTS BG =============
+   ======================================= */
+.bg-gradient-primary-soft {
+  background: linear-gradient(
+    90deg,
+    #0d6efd 0%,
+    rgba(71, 139, 255, 0.569) 100%
+  );
+}
+
+.bg-gradient-primary-warm {
+  background: linear-gradient(130deg, #0d6efd 0%, #ffcc8091 100%);
+}
+
+/* =======================================
+   ========== BACKGROUND COLORS ==========
+   ======================================= */
+.bg-orange {
+  background-color: rgb(255, 178, 24);
+}
+
+.bg-white-opacity-30 {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.bg-white-opacity-95 {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* =======================================
+   ============== SIZES ==================
+   ======================================= */
+.size-2-5rem {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.size-6rem {
+  width: 6rem;
+  height: 6rem;
+}
+
+/* =======================================
+   ============ MAX-WIDTHS ===============
+   ======================================= */
+.max-w-32rem {
+  max-width: 32rem;
+}
+
+.max-w-36rem {
+  max-width: 36rem;
+}
+
+.max-w-44rem {
+  max-width: 44rem;
+}
+
+.max-w-58rem {
+  max-width: 58rem;
+}
+
+.max-w-64rem {
+  max-width: 64rem;
+}
+
+/* =======================================
+   ============ FLEX UTILITIES ===========
+   ======================================= */
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-2 {
+  flex: 2 1 0%;
+}
+
+.flex-3 {
+  flex: 3 1 0%;
+}
+
+/* =======================================
+   ============= TEXT COLORS =============
+   ======================================= */
+.text-white-75 {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* =======================================
+   ============== GRADIENTS ==============
+   ======================================= */
+.hero-deco .gradient {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at center, transparent 70%);
+}
+
+.gradient-1 {
+  top: 100px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at center, #83b9ffa8 0%, transparent 70%);
+}
+
+.gradient-2 {
+  top: 150px;
+  right: -250px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at center, #ffcc8091 0%, transparent 70%);
+}
+
+.gradient-3 {
+  top: -100px;
+  left: -200px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at center, #ffcc8091 0%, transparent 70%);
+}
+
+.gradient-4 {
+  top: -100px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at center, #ffcc8091 0%, transparent 70%);
+}
+
+/* =======================================
+   ========== MEDIA QUERIES ==============
+   ======================================= */
+
+/* Gradients – mobile adjustments */
+@media (max-width: 767.98px) {
+  .gradient-1 {
+    top: 50px;
+    right: -150px;
+    width: 400px;
+    height: 400px;
+  }
+
+  .gradient-2 {
+    top: 80px;
+    right: -100px;
+    width: 150px;
+    height: 150px;
+  }
+
+  .gradient-3,
+  .gradient-4 {
+    top: -20px;
+    right: -120px;
+    width: 350px;
+    height: 350px;
+  }
+}
+
+/* Navbar collapse – mobile (<=991px) */
+@media (max-width: 991.98px) {
+  .navbar .navbar-collapse {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    padding: 1rem 0;
+    z-index: 10;
+  }
+
+  .navbar .navbar-collapse .nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .navbar .navbar-collapse .nav-link {
+    display: block;
+    width: 80%;
+    text-align: center;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Medium+ screens */
+@media (min-width: 768px) {
+  .w-md-auto {
+    width: auto !important;
+  }
 }

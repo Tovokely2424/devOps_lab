@@ -1,0 +1,19 @@
+{% for booking in bookings %}
+{% set annonce = booking.bookingAnnonce %}
+    <div class="row mt-3">
+        <div class="col-2">
+            <img src="{{ annonce.converImage}}" class="img-fluid" alt="Photo de l'annonce {{annonce.tittle}}">
+        </div>
+        <div class="col-10">
+            <h5 class="text-center">{{annonce.tittle}}</h5>
+            <p class="text-center fonts">{{annonce.introduction}}</p>
+            <div class="row">
+                <div class="col-md-6 fonts">resérvé le <span>{{booking.createdAt | date('d-m-Y')}}</span></div>
+                <div class="col-md-6 fonts">Du {{booking.startDate | date('d-m-Y')}} au {{booking.endDate | date('d-m-Y')}}</div>
+            </div>
+            <div class="buttons">
+                <a href="{{ path('booking_show', {'id' : booking.id})}}"><button class="btn btn-outline-primary px-4">Plus d'information</button></a>
+            </div>
+        </div>
+    </div>
+{% endfor %}

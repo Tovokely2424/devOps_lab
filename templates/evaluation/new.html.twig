@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Evaluation{% endblock %}
+
+{% block body %}
+    <h2>Nouvelle Evaluation</h2>
+    {{ form_start(form)}}
+        <div>
+            {{ form_row(form.commentaireGlobal)}}
+        </div>
+        <h5>Critere regroupé par rubrique</h5>
+        {% for rubrique, score in form.scoreGrouped.vars.data %}
+            <fieldset style="border: 1p solid #ccc; padding : 10px; margin-bottom : 20px;">
+                <legend>{{ rubrique}}</legend>
+                {% for score in scores %}
+                    <div style="margin-bottom : 10px;">
+                        <label for=""><strong>{{ score.getCritere().getTitre() }}</strong></label>
+                        {{ form_widget(form.scores[score|index ])}}
+                    </div>
+                {% endfor %}
+            </fieldset>
+
+        {% endfor %}
+        <button class="btn btn-success">Enregistrer</button>
+    {{ form_end(form)}}
+{% endblock %}

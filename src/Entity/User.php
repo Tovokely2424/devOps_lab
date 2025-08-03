@@ -96,10 +96,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $userRoles;
 
+
+    #[ORM\OneToMany(mappedBy: 'agent', targetEntity: AppCall::class, cascade: ['persist', 'remove'])]
+    private Collection $calls;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
+        $this->calls = new ArrayCollection();
     }
     /**
      * Permet d'initialiser le slug d'un utilisateur
@@ -313,6 +318,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $userRole->removeUser($this);
         }
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Call>
+     */
+    public function getCalls(): Collection
+    {
+        return $this->calls;
+    }
+
+    public function addCall(AppCall $call): self
+    {
+        if (!$this->calls->contains($call)) {
+            $this->calls[] = $call;
+            $call->setAgent($this);
+        }
+        return $this;
+    }
+
+    public function removeCall(AppCall $call): self
+    {
+        if ($this->calls->removeElement($call)) {
+            if ($call->getAgent() === $this) {
+                $call->setAgent(null);
+            }
+        }
         return $this;
     }
 }

@@ -52,5 +52,36 @@
                 </div>
             </div>
         </div>
+        <div class="row d-flex justify-content-center mt-3">
+            <div class="col-md-10">
+                <div class="card p-3 py-4 text-center">
+                    <h5 class="title_important">Mes accompagnement</h5>
+                    <hr>
+                    <div class="row">
+                        {% if bookings | length > 0 %}
+                            
+                        {% else %}
+                            
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-3">
+            <div class="col-md-10">
+                <div class="card p-3 py-4 text-center">
+                    <h5 class="title_important">Mes réservations</h5>
+                    <hr>
+                    <div class="row">
+                        {% if bookings | length > 0 %}
+                            {% include "account/_bookings.html.twig" %}
+                        {% else %}
+                            <div class="col-md-6 fonts">{{user.fullName}} Pas de reservation </div>
+                            <div class="col-md-6"><a href="#" class="btn btn-sucess">Reserver une date</a></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

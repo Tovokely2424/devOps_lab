@@ -9,23 +9,7 @@
             </div>
         </div>
         
-            {% for booking in bookings %}
-            {% set annonce = booking.bookingAnnonce %}
-                <div class="row mt-3">
-                    <div class="col-2">
-                        <img src="{{ annonce.converImage}}" class="img-fluid" alt="Photo de l'annonce {{annonce.tittle}}">
-                    </div>
-                    <div class="col-10">
-                        <h5 class="text-center">{{annonce.tittle}}</h5>
-                        <p class="text-center">{{annonce.introduction}}</p>
-                        <div class="row">
-                            <div class="col-md-6">resérvé le <span>{{booking.createdAt | date('d-m-Y')}}</span></div>
-                            <div class="col-md-6">Du {{booking.startDate | date('d-m-Y')}} au {{booking.endDate | date('d-m-Y')}}</div>
-                        </div>
-                        <a href="{{path('booking_show', {'id' : booking.id})}}" class="btn btn-info">PLus d'information</a>
-                    </div>
-                </div>
-            {% endfor %}
+        {% include "account/_bookings.html.twig" %}
         
     </div>
 {% endblock %}

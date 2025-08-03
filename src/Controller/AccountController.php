@@ -51,10 +51,12 @@ class AccountController extends AbstractController
      * @Route("/compte/{slug}", name="account_profile")
      */ 
     
-    public function profile(){
+    public function profile(BookingRepository $book_repo){
         $user = $this->getUser();
+        $bookings = $book_repo->findBy(['booker' => $user], ['createdAt' => 'DESC']);
         return $this->render('account/profile.html.twig',[
-            'user'=>$user
+            'user'=>$user,
+            'bookings' => $bookings
             ]);
     }
 
@@ -150,5 +152,11 @@ class AccountController extends AbstractController
             'bookings' => $bookings,
             'user' => $user
         ]);
+    }
+
+    #[Route("/compte/mot-de-passe-oublie", name: "account_forgot_password")]
+    public function forgotPassword(): Response
+    {
+        return $this->render('account/forgot_password.html.twig');
     }
 }

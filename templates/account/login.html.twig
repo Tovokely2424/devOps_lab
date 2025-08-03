@@ -3,7 +3,6 @@
 {% block title %}Se connecter{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-5">
                 <div class="card p-3 py-4">
@@ -23,17 +22,26 @@
                                     <label for="password">Mot de passe </label>
                                     <input type="password" name="_password" id="password" placeholder="Mot de passe" class="form-control" required>
                                 </div>
-
+                                <div class="form-check mt-3">
+                                    <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me" value="on">
+                                    <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6 text-center">
+                                        <a href="{{ path('account_forgot_password') }}" class="text-decoration-none">Mot de passe oublié ?</a>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        Pas encore de compte ? <a href="{{ path('account_registration') }}" class="text-dark bg-light rounded-pill px-3">Inscrivez-vous !</a>
+                                    </div>
+                                </div>
                                 <div class="buttons mt-4 mb-3">
-                                    <button type="submit" class="btn btn-outline-primary px-4">Enregistrer</button>
-                                    <button type="reset" class="btn btn-primary px-4 ms-3">Reinitialiser</button>
+                                    <button type="submit" class="btn btn-outline-primary px-4">Se connecter </button>
                                 </div>
                             </form>
                         </div>
                     </div>        
                 </div>
             </div>
-        </div>
-    </div>    
+        </div>    
     
 {% endblock %}

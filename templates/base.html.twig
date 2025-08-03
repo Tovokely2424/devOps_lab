@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Pi Voyage - {% block title %}Controleo App{% endblock %}</title>
+        <title>Acompagner-0 | {% block title %}{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         {% include "partials/header.html.twig" %}
-        <main class="flex-grow-1">
+        <main class="bg-white section-offset flex-grow-1">
             {% block body %}{% endblock %}
         </main>
         {% include "partials/footer.html.twig" %}
