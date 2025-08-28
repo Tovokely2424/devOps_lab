@@ -11,7 +11,7 @@ While the core functionality is focused on call center quality management, the m
 - Infrastructure as Code (IaC)
 - Continuous Integration / Continuous Deployment (CI/CD)
 - Configuration Management
-- Containerization and Orchestration
+- Containerization and Orchestration with DOcker and docker-compose
 - Monitoring and Logging
 - Security and Compliance
 - Automation and Testing
@@ -40,9 +40,9 @@ A web application for managing and evaluating the quality of agent calls in a ca
 
 ### 🔧 Development
 
-- **Backend**: PHP 8.x (Symfony Framework)
-- **Frontend**: Twig templating, Vanilla JavaScript
-- **Database**: MySQL / PostgreSQL
+- **Backend**: PHP 8.2 (Symfony Framework)
+- **Frontend**: Twig templating, JQuery, Bootstrap
+- **Database**: MySQL
 - **Authentication**: Symfony Security Component
 
 ### 🚀 DevOps Stack
@@ -50,14 +50,14 @@ A web application for managing and evaluating the quality of agent calls in a ca
 > *(This is the real focus of the project)*
 
 - **Version Control**: Git, GitHub
-- **CI/CD**: GitHub Actions / GitLab CI / Jenkins (depending on experiment)
-- **IaC**: Terraform / Ansible
+- **CI/CD**: GitHub Actions
+- **IaC**: Terraform
 - **Containers**: Docker, Docker Compose
-- **Orchestration**: Kubernetes (via Minikube / k3s / GKE)
+- **Orchestration**: Kubernetes (via Minikube)
 - **Monitoring**: Prometheus, Grafana
-- **Logging**: ELK Stack (Elasticsearch, Logstash, Kibana)
+- **Logging**: ELK Stack (Elasticsearch)
 - **Secrets Management**: HashiCorp Vault / Kubernetes Secrets
-- **Hosting / Deployment**: Local (Dev), Cloud (Test/Prod) – AWS / GCP (as needed)
+- **Hosting / Deployment**: Local (Dev), Cloud (Test/Prod) – AWS
 
 ---
 
