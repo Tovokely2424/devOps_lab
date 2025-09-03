@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-RUN  apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     libicu-dev \
     libzip-dev \
     unzip \
@@ -18,14 +18,6 @@ RUN  apt-get update && apt-get install -y \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
-
-COPY . .
-
-RUN composer install
-
-# Donne les bons droits
-RUN chown -R www-data:www-data /var/www/var
-
 
 EXPOSE 9000
 
